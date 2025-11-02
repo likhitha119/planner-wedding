@@ -25,13 +25,14 @@ mongoose.connect(process.env.MONGODB_URI, mongooseOptions)
 // Middleware
 app.use(helmet());
 
-// CORS Configuration - Allow localhost for development and Render URLs for production
+// CORS Configuration - Allow localhost for development and Vercel/Render URLs for production
 const allowedOrigins = [
   'http://localhost:5173', 
   'http://localhost:3000', 
   'http://127.0.0.1:5173',
   'https://localhost:5173',
-  process.env.FRONTEND_URL // Add your frontend URL from Render
+  'https://planner-wedding.vercel.app', // Vercel frontend
+  process.env.FRONTEND_URL // Add your frontend URL from environment
 ];
 
 app.use(cors({
