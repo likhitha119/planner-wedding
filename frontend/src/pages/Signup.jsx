@@ -48,7 +48,7 @@ const Signup = () => {
       const { confirmPassword, ...submitData } = formData
       console.log('📤 Sending registration to:', axios.defaults.baseURL)
       
-      const response = await axios.post('/api/auth/register', submitData)
+      const response = await axios.post('/auth/register', submitData) // Removed /api since it's in baseURL
       
       console.log('✅ Registration successful:', response.data)
       toast.dismiss(loadingToast)

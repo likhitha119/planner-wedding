@@ -34,7 +34,7 @@ const Login = () => {
     try {
       console.log('📤 Sending login to:', axios.defaults.baseURL)
       
-      const response = await axios.post('/api/auth/login', formData)
+      const response = await axios.post('/auth/login', formData) // Removed /api since it's in baseURL
       const { token, user } = response.data
       
       console.log('✅ Login successful:', user)
