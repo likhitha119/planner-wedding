@@ -54,28 +54,6 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Routes
-// Root route - Welcome page
-app.get('/', (req, res) => {
-  res.json({
-    name: 'Wedding Planner API',
-    version: '1.0.0',
-    status: 'Online',
-    message: 'Welcome to Wedding Planner Backend API',
-    frontend: 'https://planner-wedding.vercel.app',
-    documentation: {
-      health: '/api/health',
-      endpoints: [
-        'POST /api/auth/register - User registration',
-        'POST /api/auth/login - User login',
-        'POST /api/contact - Submit contact form',
-        'POST /api/bookings - Create wedding booking',
-        'GET /api/bookings - Get user bookings (requires auth)'
-      ]
-    },
-    timestamp: new Date().toISOString()
-  });
-});
-
 app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'OK', 
