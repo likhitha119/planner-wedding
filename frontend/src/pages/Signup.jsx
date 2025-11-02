@@ -42,17 +42,38 @@ const Signup = () => {
     }
 
     setIsSubmitting(true)
+    const loadingToast = toast.loading('Creating your account...')
 
     try {
       const { confirmPassword, ...submitData } = formData
-      await axios.post('/api/auth/register', submitData)
+      console.log('📤 Sending registration to:', axios.defaults.baseURL)
       
+      const response = await axios.post('/api/auth/register', submitData)
+      
+      console.log('✅ Registration successful:', response.data)
+      toast.dismiss(loadingToast)
       toast.success('Registration successful! Redirecting to login...')
-      // Navigate immediately after registration
-      navigate('/login', { replace: true })
+      
+      // Clear form
+      setFormData({
+        fullname: '',
+        email: '',
+        username: '',
+        password: '',
+        confirmPassword: ''
+      })
+      
+      // Navigate after a short delay
+      setTimeout(() => {
+        navigate('/login', { replace: true })
+      }, 1000)
     } catch (error) {
+      console.error('❌ Registration error:', error)
+      toast.dismiss(loadingToast)
+      
       const errorMessage = error.response?.data?.error || 
                           error.response?.data?.errors?.[0]?.msg || 
+                          error.message ||
                           'Registration failed. Please try again.'
       toast.error(errorMessage)
       setIsSubmitting(false)
@@ -117,9 +138,15 @@ const Signup = () => {
           <input
             type="submit"
             className="btn"
-            value={isSubmitting ? "Signing up..." : "Sign Up"}
+            value={isSubmitting ? "⏳ Creating account (may take 30-60s)..." : "Sign Up"}
             disabled={isSubmitting}
+            style={{ cursor: isSubmitting ? 'wait' : 'pointer' }}
           />
+          {isSubmitting && (
+            <p style={{ textAlign: 'center', fontSize: '0.9rem', color: '#888', marginTop: '10px' }}>
+              💡 First request may take time if backend was sleeping...
+            </p>
+          )}
           <div>
             Already have an Account? <Link to="/login">Login Here</Link>
           </div>
