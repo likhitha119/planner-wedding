@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Connection Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 { color: #333; }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #45a049; }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Wedding Planner API Test</h1>
+        
+        <div id="config" class="result info"></div>
+        
+        <h2>1. Test Backend Health</h2>
+        <button onclick="testHealth()">Test Health Endpoint</button>
+        <div id="health-result"></div>
+        
+        <h2>2. Test Registration</h2>
+        <input type="text" id="fullname" placeholder="Full Name" value="Test User">
+        <input type="email" id="email" placeholder="Email" value="test@example.com">
+        <input type="text" id="username" placeholder="Username" value="testuser123">
+        <input type="password" id="password" placeholder="Password" value="Test1234!">
+        <button onclick="testRegister()">Test Registration</button>
+        <div id="register-result"></div>
+        
+        <h2>3. Test Login</h2>
+        <input type="text" id="login-username" placeholder="Username" value="testuser123">
+        <input type="password" id="login-password" placeholder="Password" value="Test1234!">
+        <button onclick="testLogin()">Test Login</button>
+        <div id="login-result"></div>
+    </div>
+
+    <script>
+        // API Configuration
+        const API_URL = 'https://planner-wedding.onrender.com';
+        
+        // Show configuration
+        document.getElementById('config').innerHTML = `
+<strong>Configuration:</strong>
+API Base URL: ${API_URL}
+Test Time: ${new Date().toLocaleString()}
+        `;
+
+        async function testHealth() {
+            const resultDiv = document.getElementById('health-result');
+            resultDiv.className = 'result info';
+            resultDiv.innerHTML = 'Testing... Please wait...';
+            
+            try {
+                const response = await fetch(`${API_URL}/api/health`);
+                const data = await response.json();
+                
+                resultDiv.className = 'result success';
+                resultDiv.innerHTML = `
+<strong>✅ Success!</strong>
+Status: ${response.status}
+URL Called: ${API_URL}/api/health
+Response:
+${JSON.stringify(data, null, 2)}
+                `;
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `
+<strong>❌ Error!</strong>
+${error.message}
+URL Attempted: ${API_URL}/api/health
+                `;
+            }
+        }
+
+        async function testRegister() {
+            const resultDiv = document.getElementById('register-result');
+            resultDiv.className = 'result info';
+            resultDiv.innerHTML = 'Registering... (may take 30-60s if backend is sleeping)';
+            
+            const data = {
+                fullname: document.getElementById('fullname').value,
+                email: document.getElementById('email').value,
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value
+            };
+            
+            try {
+                const response = await fetch(`${API_URL}/api/auth/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = `
+<strong>✅ Registration Successful!</strong>
+Status: ${response.status}
+URL Called: ${API_URL}/api/auth/register
+Response:
+${JSON.stringify(result, null, 2)}
+                    `;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = `
+<strong>⚠️ Registration Failed</strong>
+Status: ${response.status}
+URL Called: ${API_URL}/api/auth/register
+Error: ${result.error || JSON.stringify(result)}
+                    `;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `
+<strong>❌ Network Error!</strong>
+${error.message}
+URL Attempted: ${API_URL}/api/auth/register
+Possible causes:
+- Backend is sleeping (wait 30-60s and try again)
+- CORS issue
+- Backend is down
+                `;
+            }
+        }
+
+        async function testLogin() {
+            const resultDiv = document.getElementById('login-result');
+            resultDiv.className = 'result info';
+            resultDiv.innerHTML = 'Logging in...';
+            
+            const data = {
+                username: document.getElementById('login-username').value,
+                password: document.getElementById('login-password').value
+            };
+            
+            try {
+                const response = await fetch(`${API_URL}/api/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = `
+<strong>✅ Login Successful!</strong>
+Status: ${response.status}
+URL Called: ${API_URL}/api/auth/login
+Response:
+${JSON.stringify(result, null, 2)}
+                    `;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = `
+<strong>⚠️ Login Failed</strong>
+Status: ${response.status}
+URL Called: ${API_URL}/api/auth/login
+Error: ${result.error || JSON.stringify(result)}
+                    `;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `
+<strong>❌ Network Error!</strong>
+${error.message}
+URL Attempted: ${API_URL}/api/auth/login
+                `;
+            }
+        }
+        
+        // Auto-test health on page load
+        window.onload = function() {
+            setTimeout(testHealth, 500);
+        };
+    </script>
+</body>
+</html>
