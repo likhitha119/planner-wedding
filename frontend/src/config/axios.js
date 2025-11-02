@@ -4,8 +4,8 @@ import toast from 'react-hot-toast'
 // Configure axios base URL based on environment
 const API_URL = import.meta.env.VITE_API_URL || 
   (import.meta.env.MODE === 'production' 
-    ? 'https://planner-wedding.onrender.com/api'
-    : '/api') // In development, Vite proxy handles this
+    ? 'https://planner-wedding.onrender.com'
+    : '') // In development, Vite proxy handles this
 
 console.log('🔧 API URL:', API_URL) // Debug log
 

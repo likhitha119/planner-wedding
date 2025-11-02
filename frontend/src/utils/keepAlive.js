@@ -2,7 +2,7 @@
 // This prevents Render free tier from sleeping
 
 const BACKEND_URL = 'https://planner-wedding.onrender.com/api/health'
-const PING_INTERVAL = 14 * 60 * 1000 // 14 minutes
+const PING_INTERVAL = 14 * 60 * 1000 // 14 minutes (840000ms)
 
 let keepAliveInterval = null
 
