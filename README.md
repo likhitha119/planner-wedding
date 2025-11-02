@@ -2,6 +2,13 @@
 
 A complete responsive wedding planner website built with React frontend and Node.js backend with MongoDB Atlas database.
 
+## 🚀 Quick Deploy
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/likhitha119/planner-wedding)
+
+**Backend Live:** Ready for Render deployment  
+**Frontend Preview:** http://localhost:5173 (when running locally)
+
 ## 🚀 Features
 
 ### Frontend (React)
@@ -165,15 +172,38 @@ Copy all images from `FSDAssignment5/PHOTOS/` to `client/public/assets/photos/`
 
 ## 🚀 Deployment
 
-### Backend Deployment
-1. Set up environment variables on your hosting platform
-2. Ensure MongoDB Atlas is accessible
-3. Deploy to platforms like Heroku, Railway, or DigitalOcean
+### Backend Deployment (Render.com) - EASIEST WAY
+
+**Option 1: One-Click Deploy (Recommended)**
+1. Click the "Deploy to Render" button above
+2. Sign in with GitHub
+3. Add environment variables in Render dashboard
+4. Click "Create Web Service"
+
+**Option 2: Manual Deploy**
+1. Go to https://render.com and sign up with GitHub
+2. New + → Web Service
+3. Connect repository: `likhitha119/planner-wedding`
+4. Settings:
+   - **Root Directory:** `backend`
+   - **Build Command:** `npm install`
+   - **Start Command:** `npm start`
+5. Add Environment Variables:
+   ```
+   NODE_ENV=production
+   MONGODB_URI=<your-mongodb-connection-string>
+   JWT_SECRET=<your-jwt-secret>
+   ```
+6. Deploy!
+
+📖 **See detailed instructions:** [RENDER_DEPLOYMENT.md](./RENDER_DEPLOYMENT.md)
 
 ### Frontend Deployment
 1. Build the React app: `npm run build`
 2. Deploy to platforms like Netlify, Vercel, or GitHub Pages
 3. Update API endpoints to point to your deployed backend
+
+**Important:** After deploying backend, update the API URL in frontend code from `http://localhost:5000` to your Render URL
 
 ## 🤝 Contributing
 
