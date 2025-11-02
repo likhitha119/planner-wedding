@@ -1,0 +1,15 @@
+# Alternative local MongoDB setup
+# If MongoDB Atlas continues to have SSL issues, you can use local MongoDB:
+
+# 1. Install MongoDB Community Server from: https://www.mongodb.com/try/download/community
+# 2. Start MongoDB service
+# 3. Replace your .env file content with:
+
+PORT=3000
+MONGODB_URI=mongodb://localhost:27017/wedding-planner
+JWT_SECRET=a8f5f167f44f4964e6c998dee827110c8b2e4a7d3f9c1b5e8a2d6f4c9e7b3a1f
+NODE_ENV=development
+
+# This will use local MongoDB instead of Atlas
+# No SSL issues, works immediately
+# Perfect for development and testing
