@@ -192,24 +192,28 @@ Add your live URLs:
 ```markdown
 ## 🌐 Live Demo
 
-- **Frontend:** https://your-project.vercel.app
-- **Backend:** https://planner-wedding.onrender.com
+- **Frontend:** https://planner-wedding.vercel.app
+- **Backend API:** https://planner-wedding.onrender.com
+- **API Health:** https://planner-wedding.onrender.com/api/health
+- **Test Page:** https://planner-wedding.vercel.app/test-connection.html
 ```
 
 ### Test Everything
 
-- [ ] Homepage loads
+- [ ] Homepage loads at https://planner-wedding.vercel.app
 - [ ] User signup works
 - [ ] User login works
 - [ ] Booking form submits
 - [ ] Contact form works
+- [ ] Test page works at /test-connection.html
 - [ ] Admin panels accessible
 
 ### Share Your Links!
 
-- Frontend: `https://your-project.vercel.app`
-- Backend: `https://planner-wedding.onrender.com`
-- GitHub: `https://github.com/likhitha119/planner-wedding`
+- **Frontend:** https://planner-wedding.vercel.app
+- **Backend:** https://planner-wedding.onrender.com
+- **GitHub:** https://github.com/likhitha119/planner-wedding
+- **Test Page:** https://planner-wedding.vercel.app/test-connection.html
 
 ---
 

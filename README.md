@@ -2,12 +2,16 @@
 
 A complete responsive wedding planner website built with React frontend and Node.js backend with MongoDB Atlas database.
 
+## 🌐 Live Demo
+
+- **Frontend:** https://planner-wedding.vercel.app
+- **Backend API:** https://planner-wedding.onrender.com
+- **API Health:** https://planner-wedding.onrender.com/api/health
+- **Test Page:** https://planner-wedding.vercel.app/test-connection.html
+
 ## 🚀 Quick Deploy
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/likhitha119/planner-wedding)
-
-**Backend Live:** Ready for Render deployment  
-**Frontend Preview:** http://localhost:5173 (when running locally)
 
 ## 🚀 Features
 
