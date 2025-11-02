@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import Header from './components/Header'
@@ -16,8 +16,16 @@ import NotFound from './pages/NotFound'
 import ContactAdmin from './pages/ContactAdmin'
 import BookingAdmin from './pages/BookingAdmin'
 import { AuthProvider } from './context/AuthContext'
+import { startKeepAlive, stopKeepAlive } from './utils/keepAlive'
 
 function App() {
+  // Start keep-alive service to prevent backend from sleeping
+  useEffect(() => {
+    if (import.meta.env.MODE === 'production') {
+      startKeepAlive()
+      return () => stopKeepAlive()
+    }
+  }, [])
   return (
     <ErrorBoundary>
       <AuthProvider>
