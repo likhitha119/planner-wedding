@@ -80,16 +80,10 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV === 'production') {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: [
+    'http://localhost:5173',  // Local development
+    'https://planner-wedding.vercel.app'  // Your Vercel frontend
+  ],
   credentials: true
 }));
 
@@ -106,9 +100,10 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-app.use('/api/auth', authRoutes);
-app.use('/api/contact', contactRoutes);
-app.use('/api/bookings', bookingRoutes);
+// API Routes
+app.use('/auth', authRoutes);
+app.use('/contact', contactRoutes);
+app.use('/bookings', bookingRoutes);
 
 // Enhanced error handling
 app.use((err, req, res, next) => {
