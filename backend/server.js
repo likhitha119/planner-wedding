@@ -58,7 +58,8 @@ app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'OK', 
     message: 'Wedding Planner API with MongoDB Atlas is running',
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
+    routes: ['POST /api/auth/register', 'POST /api/auth/login', 'POST /api/contact', 'POST /api/bookings']
   });
 });
 

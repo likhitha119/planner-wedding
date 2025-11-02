@@ -1,0 +1,6 @@
+# Files to ignore during Render deployment
+.git
+.gitignore
+README.md
+*.md
+.env.example
